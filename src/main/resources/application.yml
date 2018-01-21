@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+info:
+  app:
+    name: Telegram Bot Ryanair
+    description: Ryanair bot for Telegram
+    projectVersion: ${project.version}
+    timestamp: ${timestamp}
+    scmVersion: ${buildNumber}
+
+routesApi:
+  url: https://api.ryanair.com/core/3/routes/
+
+schedulesApi:
+  url: https://api.ryanair.com/timetable/3/schedules/{departure}/{arrival}/years/{year}/months/{yearMonth}
+
+airportApi:
+    url: https://api.ryanair.com/core/3/airports/
+
+endpoints:
+  health:
+    sensitive: false
+
+middleware:
+  auth:
+    header:
+      name: X-API-AUTH-KEY
+

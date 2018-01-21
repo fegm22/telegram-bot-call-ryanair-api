@@ -1,6 +1,7 @@
 package org.ryanairbot;
 
 import org.ryanairbot.handlers.RyanairHandlers;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -13,10 +14,17 @@ import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 
-public class Main {
+@SpringBootApplication
+public class Application implements CommandLineRunner {
+
     private static final String LOGTAG = "MAIN";
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
         BotLogger.setLevel(Level.ALL);
         BotLogger.registerLogger(new ConsoleHandler());
         try {
@@ -39,3 +47,5 @@ public class Main {
         }
     }
 }
+
+

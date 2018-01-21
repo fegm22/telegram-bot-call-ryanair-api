@@ -1,7 +1,7 @@
 package org.ryanairbot.handlers;
 
 import org.ryanairbot.BotConfig;
-import org.ryanairbot.services.RyanairService;
+import org.ryanairbot.bot.RyanairService;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
