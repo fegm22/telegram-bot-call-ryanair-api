@@ -1,4 +1,4 @@
-package org.ryanairbot.service.impl;
+package org.ryanairbot.service;
 
 import org.ryanairbot.dto.CitiesDto;
 import org.ryanairbot.integration.CitiesApiClient;

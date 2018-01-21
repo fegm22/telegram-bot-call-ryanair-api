@@ -1,6 +1,6 @@
 package org.ryanairbot.handlers;
 
-import org.ryanairbot.BotConfig;
+import org.ryanairbot.config.BotConfig;
 import org.ryanairbot.bot.RyanairService;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -9,7 +9,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class RyanairHandlers extends TelegramLongPollingBot {
-    private static final String LOGTAG = "RAEHANDLERS";
 
     private final RyanairService ryanairService = new RyanairService();
 

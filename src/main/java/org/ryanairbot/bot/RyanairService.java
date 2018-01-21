@@ -18,10 +18,10 @@ import org.ryanairbot.dto.FlightDto;
 import org.ryanairbot.model.Airport;
 import org.ryanairbot.model.Flight;
 import org.ryanairbot.model.Route;
-import org.ryanairbot.service.impl.CitiesServices;
-import org.ryanairbot.service.impl.RoutesService;
-import org.ryanairbot.service.impl.SearchFlightsService;
-import org.ryanairbot.service.impl.SearchRouteService;
+import org.ryanairbot.service.CitiesServices;
+import org.ryanairbot.service.RoutesService;
+import org.ryanairbot.service.SearchFlightsService;
+import org.ryanairbot.service.SearchRouteService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class RyanairService {

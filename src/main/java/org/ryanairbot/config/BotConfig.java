@@ -1,4 +1,4 @@
-package org.ryanairbot;
+package org.ryanairbot.config;
 
 public class BotConfig {
 

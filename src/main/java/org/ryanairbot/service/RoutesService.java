@@ -1,4 +1,4 @@
-package org.ryanairbot.service.impl;
+package org.ryanairbot.service;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
