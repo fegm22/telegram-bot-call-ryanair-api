@@ -63,14 +63,13 @@ public class RyanairService {
         DirectedGraph<Airport, DefaultEdge> routes = routesService.getAllAvailableRoutes();
 
         Map<String, String> citiesMap = citiesServices.getAllAvailableAirports();
-
-        Map<Integer, String> cities = getCitiesQuery(query, routes);
+        Map<Integer, String> citiesQuery = getCitiesQuery(query, routes, citiesMap);
 
         //result = getRequestCommand(query);
 
-        if (cities.size() == 2) {
-            Airport departure = new Airport(cities.get(0));
-            Airport arrival = new Airport(cities.get(1));
+        if (citiesQuery.size() == 2) {
+            Airport departure = new Airport(citiesQuery.get(0));
+            Airport arrival = new Airport(citiesQuery.get(1));
 
             String instruction = getInstruction(query);
 
@@ -83,7 +82,7 @@ public class RyanairService {
         return result;
     }
 
-    private String getResultMessage(Airport departure, Airport arrival, String instruction, Map<String, String> citiesGraph) {
+    private String getResultMessage(Airport departure, Airport arrival, String instruction, Map<String, String> citiesMap) {
         String result = "";
         if (instruction.isEmpty()) {
             result = "I didn't understand your question. But here are the direct flights of the week \n\n";
@@ -91,17 +90,17 @@ public class RyanairService {
             result = result + getFlightsDirect(departure, arrival,
                     LocalDateTime.now(),
                     LocalDateTime.now().plusWeeks(1),
-                    citiesGraph);
+                    citiesMap);
 
         } else {
             if (instruction.toUpperCase().equals("CONNECTIONS")) {
-                result = getConnectionsResponse(departure, arrival, citiesGraph);
+                result = getConnectionsResponse(departure, arrival, citiesMap);
             }
             if (instruction.toUpperCase().equals("FLIGHTS")) {
                 result = getFlightsDirect(departure, arrival,
                         LocalDateTime.now(),
                         LocalDateTime.now().plusWeeks(1),
-                        citiesGraph);
+                        citiesMap);
             }
         }
         return result;
@@ -142,7 +141,9 @@ public class RyanairService {
     }
 
 
-    private Map<Integer, String> getCitiesQuery(String query, DirectedGraph<Airport, DefaultEdge> routes) {
+    private Map<Integer, String> getCitiesQuery(String query,
+                                                DirectedGraph<Airport, DefaultEdge> routes,
+                                                Map<String, String> citiesMap) {
         String[] items = query.split(" ");
         List<String> queryWords = Arrays.asList(items);
 
@@ -152,9 +153,20 @@ public class RyanairService {
             Airport airport = new Airport(word);
             if (routes.containsVertex(airport)) {
                 cities.put(contador++, word.toUpperCase());
+            } else if (citiesMap.containsKey(word.toUpperCase())) {
+                //cities.put(contador++, getKeysByValue(citiesMap, word.toUpperCase()) );
+                cities.put(contador++, citiesMap.get(word.toUpperCase()));
             }
         }
         return cities;
+    }
+
+    public static String getKeysByValue(Map<String, String> map, String value) {
+        return map.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(value))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet()).stream().findFirst().toString();
     }
 
     private String getInstruction(String query) {
@@ -188,7 +200,8 @@ public class RyanairService {
                 result = result + cities.get(citiConnect.getFrom().getIataCode()).replace("_", " ") + "\n";
             }
         } else {
-            result = "There is no connection!!! You can travel directly from " + cities.get(departure.getIataCode()) + " to " + cities.get(arrival.getIataCode()) + "\n\n";;
+            result = "There is no connection!!! You can travel directly from " + cities.get(departure.getIataCode()) + " to " + cities.get(arrival.getIataCode()) + "\n\n";
+            ;
         }
 
         return result;

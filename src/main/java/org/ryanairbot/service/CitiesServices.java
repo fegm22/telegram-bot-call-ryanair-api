@@ -25,9 +25,10 @@ public class CitiesServices {
     }
 
     private void addCity(Map<String, String> map, CitiesDto city) {
-        String citiCode = city.getCity().getCitiCodeCode();
+        String citiCode = city.getCity().getCitiCodeCode().replace("_", " ");
         String iataCode = city.getCity().getIataCode();
 
         map.putIfAbsent(iataCode, citiCode);
+        map.putIfAbsent(citiCode, iataCode);
     }
 }
